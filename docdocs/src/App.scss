@@ -1,0 +1,15 @@
+.contenedor {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  background: #f3f6fd;
+  aside {
+    width: 25%;
+  }
+  main {
+    width: 75%;
+    margin: 2vh 2vw;
+  }
+}
