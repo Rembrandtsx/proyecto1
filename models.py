@@ -57,34 +57,34 @@ def transformer_tokenizer(df):
     df = df.apply(tokenizer_porter)
     return df
 
-pre += [('porter', FunctionTransformer(transformer_tokenizer))]
-tfidf = TfidfVectorizer( ngram_range= (1,1), use_idf= True)
-pre += [('tfidf', tfidf)]
-Y = df_eleg['label'].astype('int')
-X = df_eleg['study_and_condition']
+# pre += [('porter', FunctionTransformer(transformer_tokenizer))]
+# tfidf = TfidfVectorizer( ngram_range= (1,1), use_idf= True)
+# pre += [('tfidf', tfidf)]
+# Y = df_eleg['label'].astype('int')
+# X = df_eleg['study_and_condition']
 
 
-X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size = 0.15, random_state = 98572398)
-model = [('CNB',MultinomialNB(alpha= 1.1, fit_prior= True))]
+# X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size = 0.15, random_state = 98572398)
+# model = [('CNB',MultinomialNB(alpha= 1.1, fit_prior= True))]
 
 
-p1 = Pipeline(pre+model)
+# p1 = Pipeline(pre+model)
 
-p1.fit(X_train, Y_train)
-
-
-joblib.dump(p1,"naivebayes.joblib", compress=0, protocol=None, cache_size=None)
+# p1.fit(X_train, Y_train)
 
 
-model2 = [('clf',LogisticRegression(random_state=0, C=1.0, penalty='l2', solver='newton-cg'))]
+# joblib.dump(p1,"naivebayes.joblib", compress=0, protocol=None, cache_size=None)
 
-p2 = Pipeline(pre+model2)
 
-p2.fit(X_train, Y_train)
-joblib.dump(p2, "logisticregression.joblib", compress=0, protocol=None, cache_size=None)
+# model2 = [('clf',LogisticRegression(random_state=0, C=1.0, penalty='l2', solver='newton-cg'))]
 
-model3 = [('SVM', svm.SVC(C=1, gamma=1, kernel='poly'))]
-pipeline = Pipeline(pre + model3)
+# p2 = Pipeline(pre+model2)
 
-pipeline.fit(X_train, Y_train)
-joblib.dump(pipeline, "SVM.joblib", compress=0, protocol=None, cache_size=None)
+# p2.fit(X_train, Y_train)
+# joblib.dump(p2, "logisticregression.joblib", compress=0, protocol=None, cache_size=None)
+
+# model3 = [('SVM', svm.SVC(C=1, gamma=1, kernel='poly'))]
+# pipeline = Pipeline(pre + model3)
+
+# pipeline.fit(X_train, Y_train)
+# joblib.dump(pipeline, "SVM.joblib", compress=0, protocol=None, cache_size=None)
