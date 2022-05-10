@@ -12,7 +12,7 @@ from sklearn.model_selection import train_test_split
 
 import nltk
 
-nltk.download('stopwords')
+
 from nltk.corpus import stopwords
 
 from nltk.stem.porter import PorterStemmer
