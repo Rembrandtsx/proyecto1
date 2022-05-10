@@ -1,7 +1,7 @@
 from sklearn.preprocessing import FunctionTransformer
 import nltk
 from nltk.stem.porter import PorterStemmer
-
+import scipy.sparse._csr
 nltk.download('stopwords')
 from nltk.corpus import stopwords
 
