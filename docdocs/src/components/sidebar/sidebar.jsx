@@ -13,7 +13,7 @@ function Sidebar() {
         <ul>
           <NavLink
             className={({ isActive }) => (isActive ? "active" : "")}
-            to="/home"
+            to="/"
           >
             <li>
               <ion-icon name="grid"></ion-icon>
