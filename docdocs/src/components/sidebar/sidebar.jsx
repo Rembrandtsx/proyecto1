@@ -39,7 +39,7 @@ function Sidebar() {
             </li>
           </NavLink>
 
-          <NavLink className="last" to="/home">
+          <NavLink className="last" to="/evaluar">
             <li>
               <ion-icon name="clipboard"></ion-icon>
               <p>Evaluar un paciente</p>
