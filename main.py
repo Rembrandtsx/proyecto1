@@ -3,7 +3,6 @@ import pandas as pd
 from fastapi import FastAPI
 from joblib import load
 import DataModel
-import PredictionModel
 import numpy as np
 
 app = FastAPI()
@@ -23,7 +22,7 @@ def read_item(item_id: int, q: Optional[str] = None):
 def make_predictions(dataModel: DataModel.DataModel):
     df = pd.DataFrame(dataModel.dict(), columns=dataModel.dict().keys(), index=[0])
     df.columns = dataModel.columns()
-    model = load("logisticregression.joblib")
+    model = load("Modelos/logisticregression.joblib")
     result = model.predict(df)
     print(model)
     return result.tolist()
@@ -32,7 +31,7 @@ def make_predictions(dataModel: DataModel.DataModel):
 def make_predictions(dataModel: DataModel.DataModel):
     df = pd.DataFrame(dataModel.dict(), columns=dataModel.dict().keys(), index=[0])
     df.columns = dataModel.columns()
-    model = load("naivebayes.joblib")
+    model = load("Modelos/naivebayes.joblib")
     result = model.predict(df)
     print(model)
     return result.tolist()
@@ -41,7 +40,7 @@ def make_predictions(dataModel: DataModel.DataModel):
 def make_predictions(dataModel: DataModel.DataModel):
     df = pd.DataFrame(dataModel.dict(), columns=dataModel.dict().keys(), index=[0])
     df.columns = dataModel.columns()
-    model = load("svm.joblib")
+    model = load("Modelos/svm.joblib")
     result = model.predict(df)
     print(model)
     return result.tolist()
@@ -56,7 +55,7 @@ def get_r2(dataList: DataModel.DataList):
     print(df)
     x = df.drop("label", axis=1)
     y = df["label"]
-    model = load("logisticregression.joblib")
+    model = load("Modelos/logisticregression.joblib")
     result = model.score(x, y)
     return result
 
@@ -68,7 +67,7 @@ def get_r2(dataList: DataModel.DataList):
     print(df)
     x = df.drop("label", axis=1)
     y = df["label"]
-    model = load("naivebayes.joblib")
+    model = load("Modelos/naivebayes.joblib")
     result = model.score(x, y)
     return result
 
@@ -80,7 +79,7 @@ def get_r2(dataList: DataModel.DataList):
     print(df)
     x = df.drop("label", axis=1)
     y = df["label"]
-    model = load("svm.joblib")
+    model = load("Modelos/svm.joblib")
     result = model.score(x, y)
     return result
 

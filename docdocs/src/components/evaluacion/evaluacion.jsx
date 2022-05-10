@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./evaluacion.scss";
 import userData from "../../assets/UserData.json";
 import users from "../../assets/Users.json";
-
+const URI = "";
 function Evaluacion() {
   const [predictionMode, setPredictionMode] = useState("fast"); //fast, medium, slow
   const [filingType, setFilingType] = useState("menu"); //menu, empty, filled
@@ -35,7 +35,23 @@ function Evaluacion() {
     setDisabled(true);
   };
 
-  const analizar = () => {};
+  const analizar = () => {
+    let dataToSend = {
+      study_and_condition: text,
+      label: label,
+    };
+    let URL = URI;
+    if (predictionMode === "fast") URL = URL + "/naivebayes/predict";
+    if (predictionMode === "medium") URL = URL + "/logisticregression/predict";
+    if (predictionMode === "slow") URL = URL + "/svm/predict";
+    fetch(URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dataToSend),
+    });
+  };
 
   if (filingType === "menu") {
     return (
