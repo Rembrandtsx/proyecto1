@@ -3,7 +3,6 @@ import "./evaluacion.scss";
 import userData from "../../assets/UserData.json";
 import users from "../../assets/Users.json";
 
-const url = "";
 function Evaluacion() {
   const [predictionMode, setPredictionMode] = useState("fast"); //fast, medium, slow
   const [filingType, setFilingType] = useState("menu"); //menu, empty, filled, result
