@@ -1,7 +1,7 @@
 import React from "react";
 import "./sidebar.scss";
 import logo from "../../assets/DOCDOCS.png";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function Sidebar() {
   return (
