@@ -22,7 +22,7 @@ def read_item(item_id: int, q: Optional[str] = None):
 def make_predictions(dataModel: DataModel.DataModel):
     df = pd.DataFrame(dataModel.dict(), columns=dataModel.dict().keys(), index=[0])
     df.columns = dataModel.columns()
-    model = load("Modelos/logisticregression.joblib")
+    model = load("./Modelos/logisticregression.joblib")
     result = model.predict(df)
     print(model)
     return result.tolist()
@@ -31,7 +31,7 @@ def make_predictions(dataModel: DataModel.DataModel):
 def make_predictions(dataModel: DataModel.DataModel):
     df = pd.DataFrame(dataModel.dict(), columns=dataModel.dict().keys(), index=[0])
     df.columns = dataModel.columns()
-    model = load("Modelos/naivebayes.joblib")
+    model = load("./Modelos/naivebayes.joblib")
     result = model.predict(df)
     print(model)
     return result.tolist()
@@ -40,7 +40,7 @@ def make_predictions(dataModel: DataModel.DataModel):
 def make_predictions(dataModel: DataModel.DataModel):
     df = pd.DataFrame(dataModel.dict(), columns=dataModel.dict().keys(), index=[0])
     df.columns = dataModel.columns()
-    model = load("Modelos/svm.joblib")
+    model = load("./Modelos/svm.joblib")
     result = model.predict(df)
     print(model)
     return result.tolist()
@@ -55,7 +55,7 @@ def get_r2(dataList: DataModel.DataList):
     print(df)
     x = df.drop("label", axis=1)
     y = df["label"]
-    model = load("Modelos/logisticregression.joblib")
+    model = load("./Modelos/logisticregression.joblib")
     result = model.score(x, y)
     return result
 
@@ -67,7 +67,7 @@ def get_r2(dataList: DataModel.DataList):
     print(df)
     x = df.drop("label", axis=1)
     y = df["label"]
-    model = load("Modelos/naivebayes.joblib")
+    model = load("./Modelos/naivebayes.joblib")
     result = model.score(x, y)
     return result
 
@@ -79,7 +79,7 @@ def get_r2(dataList: DataModel.DataList):
     print(df)
     x = df.drop("label", axis=1)
     y = df["label"]
-    model = load("Modelos/svm.joblib")
+    model = load("./Modelos/svm.joblib")
     result = model.score(x, y)
     return result
 
