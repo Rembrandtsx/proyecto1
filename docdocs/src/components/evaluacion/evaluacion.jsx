@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./evaluacion.scss";
 import userData from "../../assets/UserData.json";
 import users from "../../assets/Users.json";
-const URI = "";
+const URI = "http://127.0.0.1:8000";
 function Evaluacion() {
   const [predictionMode, setPredictionMode] = useState("fast"); //fast, medium, slow
   const [filingType, setFilingType] = useState("menu"); //menu, empty, filled
@@ -10,6 +10,7 @@ function Evaluacion() {
   const [text, setText] = useState("");
   const [disabled, setDisabled] = useState(false);
   const [userInfo, setuserInfo] = useState([]);
+  const [result, setResult] = useState([]);
   useEffect(() => {
     setuserInfo(
       userData.map((el, i) => {
@@ -50,7 +51,13 @@ function Evaluacion() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(dataToSend),
-    });
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        setResult(data);
+      });
   };
 
   if (filingType === "menu") {
@@ -136,6 +143,7 @@ function Evaluacion() {
             <option value="__label__1">__label__1</option>
           </select>
         </div>
+        <h3>Resultado: {result}</h3>
         <h4>Reporte clínico</h4>
         <textarea
           value={text}
