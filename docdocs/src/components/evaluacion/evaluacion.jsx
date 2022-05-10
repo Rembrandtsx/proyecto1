@@ -45,9 +45,12 @@ function Evaluacion() {
     };
     setLoading(true);
     let url = "";
-    if (predictionMode === "fast") url = "/naivebayes/predict";
-    if (predictionMode === "medium") url = "/logisticregression/predict";
-    if (predictionMode === "slow") url = "/svm/predict";
+    if (predictionMode === "fast")
+      url = "https://docdocs-bi.herokuapp.com/naivebayes/predict";
+    if (predictionMode === "medium")
+      url = "https://docdocs-bi.herokuapp.com/logisticregression/predict";
+    if (predictionMode === "slow")
+      url = "https://docdocs-bi.herokuapp.com/svm/predict";
 
     fetch(url, {
       method: "POST",
