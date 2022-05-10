@@ -2,15 +2,17 @@ import React, { useEffect, useState } from "react";
 import "./evaluacion.scss";
 import userData from "../../assets/UserData.json";
 import users from "../../assets/Users.json";
-const URI = "http://127.0.0.1:8000";
+
+const url = "";
 function Evaluacion() {
   const [predictionMode, setPredictionMode] = useState("fast"); //fast, medium, slow
-  const [filingType, setFilingType] = useState("menu"); //menu, empty, filled
+  const [filingType, setFilingType] = useState("menu"); //menu, empty, filled, result
   const [label, setLabel] = useState("__label__0");
   const [text, setText] = useState("");
   const [disabled, setDisabled] = useState(false);
   const [userInfo, setuserInfo] = useState([]);
-  const [result, setResult] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState();
   useEffect(() => {
     setuserInfo(
       userData.map((el, i) => {
@@ -37,27 +39,39 @@ function Evaluacion() {
   };
 
   const analizar = () => {
+    setFilingType("result");
     let dataToSend = {
       study_and_condition: text,
       label: label,
     };
-    let URL = URI;
-    if (predictionMode === "fast") URL = URL + "/naivebayes/predict";
-    if (predictionMode === "medium") URL = URL + "/logisticregression/predict";
-    if (predictionMode === "slow") URL = URL + "/svm/predict";
-    fetch(URL, {
+    setLoading(true);
+    let url = "";
+    if (predictionMode === "fast") url = "/naivebayes/predict";
+    if (predictionMode === "medium") url = "/logisticregression/predict";
+    if (predictionMode === "slow") url = "/svm/predict";
+
+    fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(dataToSend),
     })
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        setResult(data);
+      .then((result) => result.json())
+      .then((result) => setResult(result[0]))
+      .finally(() => {
+        setLoading(false);
       });
+  };
+
+  const reset = () => {
+    setPredictionMode("fast");
+    setFilingType("menu");
+    setLabel("__label__0");
+    setText("");
+    setDisabled(false);
+    setLoading(false);
+    setResult();
   };
 
   if (filingType === "menu") {
@@ -122,11 +136,9 @@ function Evaluacion() {
             })}
           </div>
         </div>
-
-        <div className="list"></div>
       </div>
     );
-  } else {
+  } else if (filingType === "empty") {
     return (
       <div className="evaluacion">
         <h2>Evaluar a un paciente</h2>
@@ -143,7 +155,6 @@ function Evaluacion() {
             <option value="__label__1">__label__1</option>
           </select>
         </div>
-        <h3>Resultado: {result}</h3>
         <h4>Reporte clínico</h4>
         <textarea
           value={text}
@@ -208,6 +219,32 @@ function Evaluacion() {
             Evaluar Elegibilidad del Paciente
           </button>
         </div>
+      </div>
+    );
+  } else {
+    return (
+      <div className="evaluacion">
+        {loading ? (
+          <h1>Cargando</h1>
+        ) : (
+          <div className="resultado">
+            <h1>
+              Predicción{" "}
+              {predictionMode === "fast"
+                ? "Rápida"
+                : predictionMode === "slow"
+                ? "Precisa"
+                : "Balanceada"}{" "}
+              - {result === 1 ? "Elegible" : "No elegible"}
+            </h1>
+
+            <div className="btn-container">
+              <button onClick={reset} className="btn main-btn">
+                Evaluar Elegibilidad del Paciente
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     );
   }
