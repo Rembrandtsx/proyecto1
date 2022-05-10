@@ -8,5 +8,4 @@ gunicorn==20.0.4
 sklearn
 scipy==1.7.2
 scikit-learn==1.0.2
-nltk
-imblear
+nltk==3.7
